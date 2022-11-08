@@ -47,15 +47,13 @@ def start():
     os.system('cls')
 
 def introsequence():
-    print('''Jouw naam is Dahmane Kolli
-    Je bent een medisch student op de Universiteit van Damascus en bezig met je studie wanneer er opeens aanslagen worden gepleegd.
-    Een radicale groep terroristen heeft besloten een staatsgreep te plegen en oorlog breekt uit in Syrië. Je doet de tv aan en kijkt
-    naar het nieuws. IS is nu aan de macht en er ontstaat chaos door het hele land. Mensen worden overal door terroristen
-    vermoord en winkels worden overvallen. Je kan niet meer naar school omdat er steeds meer mensen worden gegijzeld.
-    Mensen vluchtten massaal uit huis naar een betere plek toe, Syrië is niet meer veilig. Je moet vluchten. Je besluit te 
-    vluchten naar Nederland in de hoop dat je daar een beter leven kunt opbouwen.
-
-    ''')
+    print("Jouw naam is Dahmane Kolli")
+    print("Je bent een medisch student op de Universiteit van Damascus en bezig met je studie wanneer er opeens aanslagen worden gepleegd.")
+    print("Een radicale groep terroristen heeft besloten een staatsgreep te plegen en oorlog breekt uit in Syrië. Je doet de tv aan en kijkt")
+    print("naar het nieuws. IS is nu aan de macht en er ontstaat chaos door het hele land. Mensen worden overal door terroristen")
+    print("vermoord en winkels worden overvallen. Je kan niet meer naar school omdat er steeds meer mensen worden gegijzeld.")
+    print("Mensen vluchtten massaal uit huis naar een betere plek toe, Syrië is niet meer veilig. Je moet vluchten. Je besluit te")
+    print("vluchten naar Nederland in de hoop dat je daar een beter leven kunt opbouwen.")
     continueFunc()
     
 def grabID():
@@ -277,7 +275,6 @@ def zelfrijdenmetauto():
         print("Je hebt een snelle baan gevonden bij een restaurant, waar je 100 euro hebt verdient.")
         
         continueFunc()
-        balance += 100
         tijdOmTeTanken()
     elif getAJobOrStealFuel == '2':
         print("Je rijdt naar een tankstation, vult je tank en rijdt weg. Een half uur later wordt je opgepakt")
