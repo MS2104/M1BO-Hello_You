@@ -84,9 +84,8 @@ def introsequence():
     print("Er is geen andere keuze dan vluchten. Je pakt je spullen in en maakt een plan. Je gaat naar Nederland vluchten.")
     print("")
     continueFunc()
-
     
-def choice1():
+def grabID():
     grabID = input("Ga je je ID meenemen? (J/N)" + "\n" + ">>> ")
 
     while True:
@@ -104,192 +103,207 @@ def choice1():
         else:
             os.system('cls')
             print("Dat is geen geldig antwoord!")
-            choice1()
+            grabID()
 
-def choice2():
+def q1():
     print("Je staat buiten je huis en denkt na over hoe je gaat vluchten naar een betere plek...")
     
     print('''Ga je...
-    1. met de trein
-    2. lopend
-    3. met de auto
-    (1/2/3)
+    1. Turkije
+    2. Egypte
+    (1/2)
     ''')
 
     pickTransportationMethod = input(">>> ")
 
     while True:
         if pickTransportationMethod == '1':
-            print('''Je komt aan op het station maar de trein is al vertrokken.
-            Toevallig komt je vriend aan bij het station met de auto en pikt
-            hij je op. Jullie gaan samen naar de grens.''')
+            print('Je start de motor en rijdt de snelweg op. Je rijdt via Libanon naar Turkije. Na 8 uur zit je rit erop en ben je in Gaziantep.')
 
             continueFunc()
             os.system('cls')
-            break
+            inGaziantep()
         elif pickTransportationMethod == '2':
-            print('''
-            Je bent onderweg naar het plein en je vriend rijdt langs met de auto.
-            Jullie rijden samen naar de grens.''')
+            print("Nou, je wilt naar Egypte, maar dat kan dus niet omdat je dan om Israël heen moet rijden.")
+            print("Je moet dus naar Turkijë")
 
             continueFunc()
             os.system('cls')
-            break
-        elif pickTransportationMethod == '3':
-            badEndingNumberAchieved = 1
-            print("Er zat een bom onder de auto en je bent doodgegaan in de explosie.")
-            print("")
-            retryOrExit()
+            inGaziantep()
         else:
             os.system('cls')
             print("Dat is geen geldig antwoord!")
-            choice2()
-        
-def choice3():
+            q1()
+
+def inGaziantep():
+    print("Je bent aangekomen in Gaziantep. Eenmaal in Gaziantep voel je je niet helemaal lekker.")
+
+    goToDoctor = input('Wil je naar een dokter gaan? (J/N) >>> ')
+
+    if goToDoctor == 'J' or 'j':
+        print("Je gaat naar de dokter.")
+
+        continueFunc()
+        opgeknapt()
+    elif goToDoctor == 'N' or 'n':
+        print("Je bent niet naar de dokter gegaan, en daarom ben je tragisch aan een onbekende")
+        print("ziekte gestorven. Rust in Vrede.")
+        print("SLECHT EINDE 1 BEREIKT!")
+
+        continueFunc()
+        retryOrExit()
+    else:
+        os.system('cls')
+        print("Dat is geen geldig antwoord!")
+        inGaziantep()
+
+def opgeknapt():
     print('''
-    Je stopt bij de grens.
-    
-    Ga je...
-    1. bij de grens blijven?
-    2. terug naar huis?
-    3. door te voet?
+    Je bent naar de dokter gegaan en je bent opgeknapt en klaar voor de reis!
+    Maar je tank is bijna leeg en nog goed voor 10 km. Je herinnert dat je nog
+    een vriend hebt in Gaziantep. Hij biedt je aan om te helpen met ergens naar toe te gaan
 
+    Je hebt 2 opties. Je kan:
+    1. via Istanbul naar Rome gaan met het vliegtuig
+    2. naar Antalya gaan met de Trein.
     ''')
 
-    whereYouGoin = input ("(1/2/3) >>> ")
-    
-    while True:
-        if whereYouGoin == '1':
-            badEndingNumberAchieved = 3
-            print("Je bent gegijzeld door terroristen, en opgeleid tot terrorist.")
-            print("Tijdens het plegen van een aanslag ben je overleden.")
-            retryOrExit()
-        elif whereYouGoin == '2':
-            badEndingNumberAchieved = 3
-            print("Je bent gegijzeld door terroristen, en opgeleid tot terrorist.")
-            print("Tijdens het plegen van een aanslag ben je overleden.")
-            retryOrExit()
-        elif whereYouGoin == '3':
-            print("Je besluit vanaf de grens door te lopen en komt na een uur lopen aan bij een treinstation")
+    istanbulOfAntalya = input("(1/2) >>> ")
 
-            continueFunc()
-            os.system('cls')
-            break
-        else:
-            os.system('cls')
-            print("Dat is geen geldig antwoord!")
-            print("")
-            choice3()
+    if istanbulOfAntalya == '1':
+        print("Je gaat dus naar Rome met het vliegtuig.")
+        continueFunc()
+        naarIstanbul()
+    elif istanbulOfAntalya == '2':
+        print("Je gaat naar Antalya met de trein.")
+        continueFunc()
+        naarAntalya()
+    else:
+        os.system('cls')
+        print("Dat is geen optie!")
+        opgeknapt
 
-def choice4():
+def naarIstanbul():
+    if "ID" in inventory:
+        print("Je hebt je ID meegenomen dus je komt langs de douane!")
+
+        continueFunc()
+        inIstanbulAangekomen()
+    else:
+        print("Je kan niet met het vliegtuig omdat je je ID niet mee hebt genomen!")
+
+        continueFunc()
+        naarAntalya()
+    return
+
+def naarAntalya():
+    print("Na een lange treinreis ben je aangekomen in Antalya. Antalya is een prachtige stad maar")
+    print("Je hebt via via gehoord dat je toch Italië kan binnen komen. Je vriend uit")
+    print("Gaziantep heeft je in contact gebracht met een mensensmokkelaar. Je zit te")
+    print("twijfelen... zal ik met de smokkelaar meegaan, in Antalya blijven of zelf verder reizen?")
+
     print('''
-    Nu je op het treinstation bent ga met de trein verder of niet? (J/N)
-
+    1. Met de smokkelaar meegaan
+    2. In Antalya blijven
+    3. in m'n eentje verder reizen.
     ''')
 
-    goWithTrainOrNah = input(">>> ")
+    meegaanmetdesmokkelaar = input(">>> ")
 
-    while True:
-        if goWithTrainOrNah == 'J' or goWithTrainOrNah == 'j':
-            print("Je pakt de trein naar Gaziantep in Turkije.")
+    if meegaanmetdesmokkelaar == '1':
+        print("Je gaat met de smokkelaar mee. Hij belooft je naar Griekenland te brengen")
+        continueFunc()
+        metSmokkelaarMeegaan()
+    elif meegaanmetdesmokkelaar == '2':
+        os.system('cls')
+        print("Je bent de oorlog eigenlijk wel ontsnapt. Hier in Antalya is het veilig genoeg.")
+        print("Het is een prachtige stad en een goed genoege plek om voor jou een toekomst op te bouwen.")
 
-            continueFunc()
-            os.system('cls')
-            break
-        elif goWithTrainOrNah == 'N' or goWithTrainOrNah == 'n':
-            badEndingNumberAchieved = 2
-            print("Je bent gearresteerd op het station door militaire soldaten op verdenking van terrorisme")
-            print("")
-            retryOrExit()
-        else:
-            os.system('cls')
-            print("Dat is geen geldig antwoord!")
-            print("")
-            choice4()
+        print("GOED EINDE 1 GEHAALD!")
+        continueFunc()
+        retryOrExit()
+    elif meegaanmetdesmokkelaar == '3':
+        print("Je gaat zelf maar verder reizen. Je volgende bestemming wordt Istanbul. Hopelijk kan je")
+        print("vanuit Istanbul verder naar Europa!")
+        continueFunc()
+        zelfReizen()
+        return
+    else:
+        print("Dat is geen geldig antwoord!")
+        sleep(3)
+        os.system('cls')
+        naarAntalya()
 
-def choice5():
-    print('''Na 2 uur ben je aangekomen in Gaziantep. Je herinnert je dat je een vriend hebt")
-    die toevallig een huis in Gaziantep heeft. Je vraagt of je mag overnachten bij hem")
-    en hij zegt ja. Je eet en gaat slapen. De volgende dag wordt je wakker maar je kan niet")
-    altijd blijven. Ga je...
-    
-    1. verblijven in Gaziantep
-    2. naar Italië
-    3. naar Griekenland
-    
-    ''')
+def inIstanbulAangekomen():
+    print("Na een korte vliegreis ben je in Rome aangekomen. Je hebt een beetje rond gekeken door Rome en vindt")
+    print("een baantje bij een restaurant. Ga je ...")
 
-    whatDo = input("(1/2/3) >>> ")
-
-    while True:
-        if whatDo == '1':
-            goodEndingNumberAchieved = 1
-            os.system('cls')
-            print("Je gaat wonen in Istanbul. Je leeft je leven in vrede verder in Gaziantep.")
-            retryOrExit()
-        elif whatDo == '2':
-            boatorNah = input("Je kan alleen met de boot. Wil je het doen? (J/N) >>> ")
-
-            if boatorNah == 'J' or 'j':
-                badEndingNumberAchieved = 6
-                print("De boot is onderweg naar Italië gezonken.")
-                retryOrExit()
-            elif boatorNah == 'N' or 'n':
-                print("Je denkt 'vergeet het dan maar' en gaat maar gewoon naar Griekenland.")
-
-                continueFunc()
-                choice5_option2()
-        elif whatDo == '3':
-            choice5_option2()
-        else:
-            os.system('cls')
-            print("Dat is geen geldig antwoord!")
-            print("")
-            choice5()
-
-def choice5_option2():
-    print("Je wilt naar Griekenland maar qua transport heb je maar 2 opties.")
     print('''
-    Ga je met de (1) boot of door de (2) bergen?
+    1. de baan nemen en in Rome vestigen.
+    2. asiel aanvragen en hopelijk naar Nederland gaan.
+
     ''')
 
-    boatOrMountains = input("(1/2) >>> ")
+    jobOrContinue = input("(1/2) >>> ")
 
-    while True:
-        if boatOrMountains == '1':
-            print("Je wordt door een smokkelaar per boot naar Griekenland gebracht en na een")
-            print("lange en zware 2 daagse tocht kom je heel aan op het Griekse eiland Lesbos.")
-            print("Je wordt opgenomen in een vluchtelingenkamp.")
+    if jobOrContinue == '1':
+        print("Je neemt de baan en lijdt je leven in Rome in vrede.")
+        print("GOED EINDE 2 GEHAALD!")
 
+        continueFunc()
+        retryOrExit()
+    elif jobOrContinue == '2':
+        os.system('cls')
+        naarNederland()
+
+def naarNederland():
+        print("Je neemt de baan alsnog aan om geld te sparen voor je asielaanvraag.")
+        print("Een paar maanden later ga je op reis naar Nederland met het geld")
+        print("dat je hebt opgespaard en doe je bij een gemeente een asielaanvraag.")
+        print("De aanvraag is geaccepteerd maar je moet nu nog naar Nederland zien te komen.")
+
+        print('''
+        Doe je dit door:
+        1. een auto te kopen en zelf te rijden naar Amsterdam
+        2. de bus te nemen
+        ''')
+
+        joc2 = input("")
+
+        if joc2 == '1':
+            zelfrijdenmetauto()
+        elif joc2 == '2':
+            ggyoumadeit()
+        else:
+            print("Dat is geen geldig antwoord!")
             continueFunc()
-            break
-        elif boatOrMountains == '2':
-            print("Tijdens je tocht in de bergen wordt je ontvoerd door radicale Koerden.")
-            print("Een paar uur later val je bijna in slaap wanneer je iemand hoort praten.")
-            print("Je turks is erg slecht maar je verstaat dat ze ergens naar toe willen gaan.")
-            print("Je bent op je hoede en hoort ze op gegeven moment rennen.")
-            print()
-            print("Dit is je gouden kans, besluit je te rennen? (J/N")
+            naarNederland()
 
-            willYouRun = input(">>> ")
+def zelfrijdenmetauto():
+    print("Je bent onderweg naar Amsterdam in Frankrijk aangereden. Je bent doodgegaan.")
+    print("SLECHT EINDE 3 GEHAALD!")
 
-            if willYouRun == 'J' or 'j':
-                print("")
-            elif willYouRun == 'N' or 'n':
-                print("Je bent gebleven en de koerden zijn terug gekomen. Ze maken jou tot slaaf en je")
-                print("sterft 2 weken later aan complicaties door de mishandelingen.")
+    continueFunc()
+    retryOrExit()
 
-                retryOrExit()
-            else:
-                os.system('cls')
-                print("Dat is geen geldig antwoord!")
-                print("")
-                choice5_option2()
-
-def choice5_option3():
+def zelfReizen():
     print("")
 
+def metSmokkelaarMeegaan():
+    os.system('cls')
+    print("Je stapt op de boot en na 7 uur varen zinkt de boot vlak voor de kust. Je hebt nooit geleerd")
+    print("hoe je moest zwemmen dus je verdrinkt.")
+    print("SLECHT EINDE 2 GEHAALD!")
 
+    continueFunc()
+    retryOrExit()
+
+def ggyoumadeit():
+    print("Je neemt de bus naar Amsterdam en na een hele dag reizen ben je aangekomen in Nederland! Hoera!!!!!!!!")
+    print("HET CORRECTE EINDE GEHAALD!!!!!!!!!!!!!!!!!!!!!")
+    
+    continueFunc()
+    retryOrExit()
 
 def main():
     # Start
@@ -297,11 +311,9 @@ def main():
     introsequence()
 
     # Het daadwerkelijke spel
-    choice1()
-    choice2()
-    choice3()
-    choice4()
-    choice5()
+    grabID()
+
+    q1()
 
 while running == True:
     main()
