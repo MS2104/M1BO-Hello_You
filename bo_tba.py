@@ -1,12 +1,12 @@
-from re import X
-from time import sleep
 
+from time import sleep
 import sys
 import os
 import random
 import keyboard
 
-inventory = []
+inventory = ['geld']
+balance = 0
 badEndingNumberAchieved = 0
 goodEndingNumberAchieved = 0
 isDead = False
@@ -35,38 +35,6 @@ def retryOrExit():
             print("Dat is geen geldig antwoord!")
             continue
 
-def ending_dead():
-    if isDead == True:
-        if badEndingNumberAchieved == 1:
-            print("Er zat een bom onder de auto en je bent doodgegaan in de explosie.")
-        elif badEndingNumberAchieved == 2:
-            print("Je bent doodgeschoten door militaire soldaten op verdenking van terrorisme")
-        elif badEndingNumberAchieved == 3:
-            print("Je bent gegijzeld door terroristen, en opgeleid tot terrorist.")
-            print("Tijdens het plegen van een aanslag ben je overleden.")
-        elif badEndingNumberAchieved == 4:
-            print("Je sterft de hongerdood!")
-        elif badEndingNumberAchieved == 5:
-            print("Je wordt gespot en vermoord door radicale koerden.")
-        elif badEndingNumberAchieved == 6:
-            print("De boot zinkt met jou erin. Je verdrinkt.")
-        elif badEndingNumberAchieved == 7:
-            print("Je wordt beroofd en vermoord.")
-        elif badEndingNumberAchieved == 8:
-            print("De boot zinkt voor de kust en je verdrinkt.")
-        else:
-            return
-
-def ending_survived():
-    if goodEndingNumberAchieved == 1:
-        print("Je gaat wonen in Istanbul. Je leeft je leven in vrede verder in Istanbul.")
-    elif goodEndingNumberAchieved == 2:
-        print("Je asielaanvraag is aangenomen dus kan je in Italië gaan wonen waar je op een wijngaarde gaat werken.")
-    elif goodEndingNumberAchieved == 3:
-        print("")
-    else:
-        return
-
 ### DE ECHTE CODE BEGINT HIER!!!!!!!!!!!!!!!!!!!!!!!!
 
 def start():
@@ -79,10 +47,15 @@ def start():
     os.system('cls')
 
 def introsequence():
-    print("Jouw naam is Dahmane Kolli")
-    print("Je bent een medisch student op de Universiteit van Damascus en bezig met je studie wanneer er oorlog uitbreekt.")
-    print("Er is geen andere keuze dan vluchten. Je pakt je spullen in en maakt een plan. Je gaat naar Nederland vluchten.")
-    print("")
+    print('''Jouw naam is Dahmane Kolli
+    Je bent een medisch student op de Universiteit van Damascus en bezig met je studie wanneer er opeens aanslagen worden gepleegd.
+    Een radicale groep terroristen heeft besloten een staatsgreep te plegen en oorlog breekt uit in Syrië. Je doet de tv aan en kijkt
+    naar het nieuws. IS is nu aan de macht en er ontstaat chaos door het hele land. Mensen worden overal door terroristen
+    vermoord en winkels worden overvallen. Je kan niet meer naar school omdat er steeds meer mensen worden gegijzeld.
+    Mensen vluchtten massaal uit huis naar een betere plek toe, Syrië is niet meer veilig. Je moet vluchten. Je besluit te 
+    vluchten naar Nederland in de hoop dat je daar een beter leven kunt opbouwen.
+
+    ''')
     continueFunc()
     
 def grabID():
@@ -91,12 +64,12 @@ def grabID():
     while True:
         if grabID == 'J' or grabID == 'j':
             inventory.append("ID")
-            print("Je neemt je ID mee.")
+            print("Je neemt je ID mee en nog wat andere spullen en gaat het huis uit.")
 
             continueFunc()
             return
         elif grabID == 'N' or grabID == 'n':
-            print("Je laat je ID liggen en gaat het huis uit.")
+            print("Je laat je ID liggen, pakt je spullen en gaat het huis uit.")
 
             continueFunc()
             return
@@ -164,7 +137,7 @@ def opgeknapt():
     een vriend hebt in Gaziantep. Hij biedt je aan om te helpen met ergens naar toe te gaan
 
     Je hebt 2 opties. Je kan:
-    1. via Istanbul naar Rome gaan met het vliegtuig
+    1. via Istanbul naar Rome gaan met het vliegtuig.
     2. naar Antalya gaan met de Trein.
     ''')
 
@@ -177,18 +150,24 @@ def opgeknapt():
     elif istanbulOfAntalya == '2':
         print("Je gaat naar Antalya met de trein.")
         continueFunc()
-        naarAntalya()
+        beroofd()
     else:
         os.system('cls')
         print("Dat is geen optie!")
         opgeknapt
+    
+def beroofd():
+    print("In de trein naar Antalya ben je gezakkenrold en is je geld en ID gestolen!")
+    inventory.clear()
+
+    continueFunc()
 
 def naarIstanbul():
     if "ID" in inventory:
         print("Je hebt je ID meegenomen dus je komt langs de douane!")
 
         continueFunc()
-        inIstanbulAangekomen()
+        inRomeAangekomen()
     else:
         print("Je kan niet met het vliegtuig omdat je je ID niet mee hebt genomen!")
 
@@ -212,8 +191,9 @@ def naarAntalya():
 
     if meegaanmetdesmokkelaar == '1':
         print("Je gaat met de smokkelaar mee. Hij belooft je naar Griekenland te brengen")
+
         continueFunc()
-        metSmokkelaarMeegaan()
+        drugsMeenemen()
     elif meegaanmetdesmokkelaar == '2':
         os.system('cls')
         print("Je bent de oorlog eigenlijk wel ontsnapt. Hier in Antalya is het veilig genoeg.")
@@ -226,16 +206,16 @@ def naarAntalya():
         print("Je gaat zelf maar verder reizen. Je volgende bestemming wordt Istanbul. Hopelijk kan je")
         print("vanuit Istanbul verder naar Europa!")
         continueFunc()
-        zelfReizen()
+        eerstovernachten()
         return
     else:
         print("Dat is geen geldig antwoord!")
-        sleep(3)
+        continueFunc()
         os.system('cls')
         naarAntalya()
 
-def inIstanbulAangekomen():
-    print("Na een korte vliegreis ben je in Rome aangekomen. Je hebt een beetje rond gekeken door Rome en vindt")
+def inRomeAangekomen():
+    print("Na een korte reis ben je in Rome aangekomen. Je hebt een beetje rond gekeken door Rome en vindt")
     print("een baantje bij een restaurant. Ga je ...")
 
     print('''
@@ -280,14 +260,143 @@ def naarNederland():
             naarNederland()
 
 def zelfrijdenmetauto():
-    print("Je bent onderweg naar Amsterdam in Frankrijk aangereden. Je bent doodgegaan.")
-    print("SLECHT EINDE 3 GEHAALD!")
+    print("Onderweg naar Nederland is de tank leeg gegaan. Maar je realizeert je dat je portomonnee")
+    print("Je bent beland in Munich, Duitsland. Maar je hebt geen geld meer en je portomonnee")
+    print("is gestolen. Je hebt dus geen geld om te tanken. Je bent wel aangekomen in Parijs!")
+    print("Je hebt 2 opties. Je kan snel een baantje doen of je kan naar een tankstation rijden en benzine stelen.")
+    print('''
+    
+    1. Werk zoeken
+    2. Benzine stelen.
+    
+    ''')
 
-    continueFunc()
+    getAJobOrStealFuel = input("(1/2) >>> ")
+
+    if getAJobOrStealFuel == '1':
+        print("Je hebt een snelle baan gevonden bij een restaurant, waar je 100 euro hebt verdient.")
+        
+        continueFunc()
+        balance += 100
+        tijdOmTeTanken()
+    elif getAJobOrStealFuel == '2':
+        print("Je rijdt naar een tankstation, vult je tank en rijdt weg. Een half uur later wordt je opgepakt")
+        print("door de Franse politie en wordt je in de cel gezet. Na een ondervraging is je asiel getermineerd")
+        print("en ben je teruggestuurd naar Syrië.")
+        print("SLECHT EINDE 3 GEHAALD!")
+
+        continueFunc()
+        retryOrExit()
+    else:
+        print("Dat is geen geldig antwoord!")
+        zelfrijdenmetauto()
+
+def tijdOmTeTanken():
+    print("Nu is het tijd om te tanken, maar je kan je auto niet vinden. Na even zoeken heb je hem")
+    print("gevonden en onthoud je waar hij staat. Er zijn 3 tankstations met de volgende prijzen:")
+
+    print('''
+    1. Shell: €0,83/L
+    2. BP: €1,02/L
+    3. Esso: €1,15/L    
+    
+    ''')
+
+    chooseGasStationBrand = input('(Shell/BP/Esso) >>> ')
+    
+    if chooseGasStationBrand == 'Shell' or 'SHELL' or 'shell':
+        print("Je hebt bij de Shell getankt en je tank zit nu vol.")
+
+        continueFunc()
+        overdegrens()
+    elif chooseGasStationBrand == 'BP' or 'bp':
+        print("Bij BP kan je geen 50L tanken!")
+        continueFunc
+        tijdOmTeTanken()
+    elif chooseGasStationBrand == 'Esso' or 'ESSO' or 'esso':
+        print("De benzine bij esso is te duur voor 50L")
+        continueFunc()
+        tijdOmTeTanken()
+    return
+
+def drugsMeenemen():
+    print("Iemand op straat benadert je, hij biedt je €10,000 als je voor hem drugs meesmokkelt.")
+    print("Je kan het geld wel goed gebruiken om een leven op te bouwen in Nederland.")
+    print("Doe je het?")
+
+    doejehet = input('(J/N) >>> ')
+
+    if doejehet == 'J' or 'j':
+        inventory.append("drugs")
+        print("Je neemt het geld aan en de drugs en gaat verder op reis.")
+        continueFunc()
+        metSmokkelaarMeegaan()
+    elif doejehet == 'N' or 'n':
+        print("Je slaat het aanbod af.")
+        continueFunc()
+        metSmokkelaarMeegaan()
+
+def gepaktMetDrugs():
+    print("De grenspolitie besloot je te staande te houden en vonden de drugs in je auto.")
+    print("Je bent gearresteerd en je asiel is getermineerd.")
+    print("SLECHT EINDE 4 GEHAALD!")
     retryOrExit()
 
-def zelfReizen():
+def eerstovernachten():
+    print("Je wilt eerst overnachten, je hebt immers niet veel geslapen door stress.")
+    print("Je kan op 2 plekken slapen, bij de daklozenopvang of op straat.")
+    print("1. daklozenopvang")
+    print("2. op straat")
     print("")
+
+    whereToSleep = input('(1/2) >>> ')
+
+    if whereToSleep == '1':
+        print("Je bent gaan slapen bij een daklozenopvang.")
+        naarIstanbulMetTrein()
+    elif whereToSleep == '2':
+        print("Je besluit op straat te slapen.")
+        continueFunc()
+        naarIstanbulMetTrein()
+    else:
+        print("Dat is geen geldig antwoord!")
+        eerstovernachten()
+    return
+    
+def naarIstanbulMetTrein():
+    print('''Na de overnachting ga je naar het treinstation. Je koopt een kaartje en gaat zitten. Nadat je bent aangekomen
+    in Istanbul kom je erachter dat je portomonnee is gestolen in de trein. Je pakt vanaf het treinstation een bus richting
+    de grens, maar je komt erachter dat de grens is gesloten. Je kan er niet doorheen omdat je ID kwijt is. Je besluit toch maar
+    de smokkelaar om hulp te vragen. Hij gaat akkoord.
+    ''')
+    continueFunc()
+    tochMaarMetSmokkelaarMeegaan()
+
+def tochMaarMetSmokkelaarMeegaan():
+    print('''De smokkelaar propt je op een boot samen met 30 anderen. Na een dagenlange bootreis komen jullie gelukkig heel aan vlakbij Athene.
+    Daar meld je je aan bij een AZC. Een paar dagen later hoor je van iemand in de kantine dat er een boot naar Catania, Italië gaat.
+    Wil je...
+    1. met de boot naar Catania gaan?
+    2. in het AZC blijven?''')
+
+    boatorazc = input('(1/2) >>> ')
+
+    if boatorazc == '1':
+        print("Na een 11 uur lange bootreis kom je veilig aan in Catania, Italië. In Catanie zie je een bus die naar Rome gaat. Je koopt ook")
+        print("daarvoor een kaartje.")
+        continueFunc()
+        inRomeAangekomen()
+    elif boatorazc == '2':
+        print("Je besluit toch maar in het AZC te blijven. Uiteindelijk kreeg je er genoeg van en besloot je asiel aan te vragen maar het werd")
+        print("keer op keer geweigerd. Je zit vast in het AZC want je kan nergens anders meer heen.")
+
+        print("SLECHT EINDE 4 GEHAALD!")
+        retryOrExit()
+    else:
+        print('Dat is geen geldig antwoord!')
+        continueFunc()
+        tochMaarMetSmokkelaarMeegaan()
+    return
 
 def metSmokkelaarMeegaan():
     os.system('cls')
@@ -298,11 +407,43 @@ def metSmokkelaarMeegaan():
     continueFunc()
     retryOrExit()
 
+def overdegrens():
+    print("Je komt aan bij de grens. Maar er is grenscontrole.")
+    print("De politie nadert je en vraagt om documenten.")
+
+    print("Druk op spatie om je ID te laten zien")
+    keyboard.wait('spacebar')
+
+    if "ID" in inventory:
+        if "drugs" not in inventory:
+            print("Je laat je ID zien en je wordt doorgelaten")
+
+            continueFunc()
+            aangekomenInNederland()
+        elif "drugs" in inventory:
+            print("De politie besluit je auto te doorzoeken.")
+            gepaktMetDrugs()
+
+def aangekomenInNederland():
+    print("Je bent eindelijk aangekomen in Nederland.")
+    TrueEnding()
+
 def ggyoumadeit():
     print("Je neemt de bus naar Amsterdam en na een hele dag reizen ben je aangekomen in Nederland! Hoera!!!!!!!!")
-    print("HET CORRECTE EINDE GEHAALD!!!!!!!!!!!!!!!!!!!!!")
     
     continueFunc()
+    TrueEnding()
+
+def TrueEnding():
+    print('''Dus, het is je gelukt. Je bent eindelijk aangekomen in Nederland en je asiel is geaccepteerd. Je hebt je aangemeld
+    bij een universiteit en je bent aangenomen. Je maakt je medische opleiding af en wordt dokter. Je denkt nog altijd terug aan
+    je leven in Syrië maar je bent blij dat je de oorlog bent ontsnapt. Je vindt liefde en krijgt een paar jaar later een kind.
+    Je hebt uiteindelijk een mooi leven met een prachtige familie opgebouwd. Je haalt uiteindelijk je 101e verjaardag en
+    sterft aan ouderdom na een vredig leven.
+
+    HET EINDE.
+    ''')
+
     retryOrExit()
 
 def main():
